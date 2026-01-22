@@ -218,9 +218,3 @@ MIT License - Ver archivo LICENSE para detalles.
 4. Push a la rama (`git push origin feature/nueva-funcion`)
 5. Crear Pull Request
 
-## 🛣️ Roadmap
-
-- [ ] Re-implementación de visualización (Diagrama/Editor)
-- [ ] Exportar informes PDF
-- [ ] Guardar/cargar configuraciones
-- [ ] Soporte para sistemas en paralelo
