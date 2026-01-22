@@ -1,6 +1,6 @@
-"""
 PipeFlow Pro API - Motor de Cálculo Hidráulico Industrial
 Version: 2.0.0
+Author: Antony Picon
 
 Endpoints:
     POST /calcular - Ejecutar simulación hidráulica

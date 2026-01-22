@@ -206,6 +206,10 @@ medidor de presion/
 
 MIT License - Ver archivo LICENSE para detalles.
 
+## 👤 Autor
+
+**Antony Picon**
+
 ## 👥 Contribuir
 
 1. Fork del repositorio

@@ -1,6 +1,7 @@
 /**
  * PipeFlow Pro - Frontend Controller
  * Version: 2.0.0
+ * Author: Antony Picon
  * 
  * Motor de interfaz para simulación hidráulica industrial
  */
