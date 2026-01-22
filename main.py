@@ -1,3 +1,4 @@
+"""
 PipeFlow Pro API - Motor de Cálculo Hidráulico Industrial
 Version: 2.0.0
 Author: Antony Picon
@@ -36,6 +37,7 @@ LIMITS = {
     "temperatura": {"min": 100, "max": 1000, "unit": "K"},        # -173°C - 727°C
     "diametro": {"min": 0.001, "max": 10, "unit": "m"},           # 1mm - 10m
     "velocidad": {"min": 0, "max": 100, "unit": "m/s"},           # 0 - 100 m/s
+    "longitud": {"min": 0.1, "max": 100000, "unit": "m"},         # 10cm - 100km
     "k_accesorios": {"min": 0, "max": 1000, "unit": "-"}          # Sin límite práctico
 }
 
@@ -131,6 +133,12 @@ class DatosEntrada(BaseModel):
         description="Velocidad de flujo en m/s",
         json_schema_extra={"example": 2.0}
     )
+    longitud: float = Field(
+        default=100.0,
+        gt=0,
+        description="Longitud de la tubería en metros",
+        json_schema_extra={"example": 100.0}
+    )
     k_accesorios: float = Field(
         default=0.0,
         ge=0,
@@ -184,6 +192,16 @@ class DatosEntrada(BaseModel):
         if not lim["min"] <= v <= lim["max"]:
             raise ValueError(
                 f"Velocidad fuera de rango válido ({lim['min']} - {lim['max']} {lim['unit']})"
+            )
+        return v
+    
+    @field_validator("longitud")
+    @classmethod
+    def validar_longitud(cls, v: float) -> float:
+        lim = LIMITS["longitud"]
+        if not lim["min"] <= v <= lim["max"]:
+            raise ValueError(
+                f"Longitud fuera de rango válido ({lim['min']} - {lim['max']} {lim['unit']})"
             )
         return v
 
@@ -367,6 +385,7 @@ async def ejecutar_simulacion(datos: DatosEntrada):
     - **temperatura**: Temperatura absoluta en Kelvin
     - **diametro**: Diámetro exterior de la tubería en metros
     - **velocidad**: Velocidad del flujo en m/s
+    - **longitud**: Longitud de la tubería en metros
     - **k_accesorios**: Suma de coeficientes K de todos los accesorios
     
     ## Resultados
@@ -381,7 +400,7 @@ async def ejecutar_simulacion(datos: DatosEntrada):
     logger.info(f"📊 Calculando: {datos.fluido} @ {datos.presion/1e5:.1f} bar, {datos.temperatura-273.15:.1f}°C")
     
     try:
-        motor = MotorHidraulico(d_ext=datos.diametro)
+        motor = MotorHidraulico(d_ext=datos.diametro, longitud=datos.longitud)
         
         resultado = motor.calcular_resultados(
             fluido=datos.fluido,

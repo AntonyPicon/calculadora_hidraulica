@@ -118,7 +118,8 @@ const VALIDACION = {
     presion: { min: 0.01, max: 10000, nombre: 'Presión', unidad: 'bar' },
     temp: { min: -200, max: 500, nombre: 'Temperatura', unidad: '°C' },
     diametro: { min: 0.001, max: 10, nombre: 'Diámetro', unidad: 'm' },
-    velocidad: { min: 0, max: 100, nombre: 'Velocidad', unidad: 'm/s' }
+    velocidad: { min: 0, max: 100, nombre: 'Velocidad', unidad: 'm/s' },
+    longitud: { min: 0.1, max: 100000, nombre: 'Longitud', unidad: 'm' }
 };
 
 /**
@@ -317,6 +318,7 @@ async function enviarDatos() {
         temperatura: parseFloat(document.getElementById('temp').value) + 273.15, // °C -> K
         diametro: parseFloat(document.getElementById('diametro').value),
         velocidad: parseFloat(document.getElementById('velocidad').value),
+        longitud: parseFloat(document.getElementById('longitud').value),
         k_accesorios: actualizarKTotal()
     };
 
